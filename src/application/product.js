@@ -6,7 +6,10 @@ const getAllProducts = async (req, res) => {
     const { categoryId } = req.query;
     const products = await Product.find(
       categoryId ? { categoryId } : {}
-    ).populate("reviews");
+    ).populate({
+      path: "reviews",
+      select: "comment rating",
+    });
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({ message: "Error fetching products" });
@@ -18,7 +21,10 @@ const getProductById = async (req, res) => {
     const { id } = req.params;
     const product = await Product.findById(id)
       .populate("categoryId", "name")
-      .populate("reviews", "comment");
+      .populate({
+        path: "reviews",
+        select: "comment rating",
+      });
 
     res.status(200).json(product);
   } catch (error) {
