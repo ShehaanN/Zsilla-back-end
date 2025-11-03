@@ -1,9 +1,20 @@
 import { Router } from "express";
+import {
+  createCategory,
+  deleteCategory,
+  getAllCategories,
+  getCategoryById,
+  updateCategory,
+} from "../application/category.js";
 
 const categoryRouter = Router();
 
-categoryRouter.get("/", (req, res) => {
-  res.status(200).send("Category API is working");
-});
+categoryRouter.route("/").get(getAllCategories).post(createCategory);
+
+categoryRouter
+  .route("/:id")
+  .get(getCategoryById)
+  .put(updateCategory)
+  .delete(deleteCategory);
 
 export default categoryRouter;
