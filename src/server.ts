@@ -1,8 +1,10 @@
-import express from "express";
-import dotenv from "dotenv/config";
-import rootRouter from "./src/api/index.js";
-import connectDB from "./src/infrastructure/db/index.js";
+import express, { Request, Response } from "express";
+import "dotenv/config";
+
 import cors from "cors";
+
+import connectDB from "./infrastructure/db/index.js";
+import rootRouter from "./api/index.js";
 
 const app = express();
 
@@ -16,6 +18,10 @@ app.use(
     credentials: true,
   })
 );
+
+app.get("/", (req: Request, res: Response) => {
+  res.send("Hello from TypeScript + ESM!");
+});
 
 app.use("/api", rootRouter);
 

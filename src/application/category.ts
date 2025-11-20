@@ -1,6 +1,7 @@
+import { Request, Response } from "express";
 import Category from "../infrastructure/db/entities/category.js";
 
-const createCategory = async (req, res) => {
+const createCategory = async (req: Request, res: Response) => {
   try {
     const categoryData = req.body;
     const newCategory = await Category.create(categoryData);
@@ -10,7 +11,7 @@ const createCategory = async (req, res) => {
   }
 };
 
-const getCategoryById = async (req, res) => {
+const getCategoryById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const category = await Category.findById(id);
@@ -23,7 +24,7 @@ const getCategoryById = async (req, res) => {
   }
 };
 
-const updateCategory = async (req, res) => {
+const updateCategory = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const categoryData = req.body;
@@ -39,7 +40,7 @@ const updateCategory = async (req, res) => {
   }
 };
 
-const deleteCategory = async (req, res) => {
+const deleteCategory = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const deletedCategory = await Category.findByIdAndDelete(id);
@@ -52,7 +53,7 @@ const deleteCategory = async (req, res) => {
   }
 };
 
-const getAllCategories = async (req, res) => {
+const getAllCategories = async (req: Request, res: Response) => {
   try {
     const categories = await Category.find();
     res.status(200).json(categories);

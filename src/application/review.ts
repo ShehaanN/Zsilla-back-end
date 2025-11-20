@@ -1,7 +1,8 @@
+import { Request, Response } from "express";
 import Product from "../infrastructure/db/entities/product.js";
 import Review from "../infrastructure/db/entities/review.js";
 
-const getAllReviews = async (req, res) => {
+const getAllReviews = async (req:Request, res:Response) => {
   try {
     const reviews = await Review.find();
     res.status(200).json(reviews);
@@ -11,7 +12,7 @@ const getAllReviews = async (req, res) => {
   }
 };
 
-const createReview = async (req, res) => {
+const createReview = async (req: Request, res: Response) => {
   try {
     const reviewData = req.body;
     const { productId } = req.query;
@@ -30,7 +31,7 @@ const createReview = async (req, res) => {
   }
 };
 
-const updateReview = async (req, res) => {
+const updateReview = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const reviewData = req.body;
@@ -46,7 +47,7 @@ const updateReview = async (req, res) => {
   }
 };
 
-const deleteReview = async (req, res) => {
+const deleteReview = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { productId } = req.query;

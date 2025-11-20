@@ -1,7 +1,8 @@
+import { Request, Response } from "express";
 import Product from "../infrastructure/db/entities/product.js";
 import Review from "../infrastructure/db/entities/review.js";
 
-const getAllProducts = async (req, res) => {
+const getAllProducts = async (req: Request, res: Response) => {
   try {
     const { categoryId } = req.query;
     const products = await Product.find(
@@ -16,7 +17,7 @@ const getAllProducts = async (req, res) => {
   }
 };
 
-const getProductById = async (req, res) => {
+const getProductById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const product = await Product.findById(id)
@@ -28,14 +29,16 @@ const getProductById = async (req, res) => {
 
     res.status(200).json(product);
   } catch (error) {
-    console.error("Error fetching product:", error);
-    res
-      .status(500)
-      .json({ message: "Error fetching product", error: error.message });
+    if (error instanceof Error) {
+      console.error("Error fetching product:", error);
+      res
+        .status(500)
+        .json({ message: "Error fetching product", error: error.message });
+    }
   }
 };
 
-const createProduct = async (req, res) => {
+const createProduct = async (req: Request, res: Response) => {
   try {
     const productData = req.body;
     const createProduct = await Product.create(productData);
@@ -45,7 +48,7 @@ const createProduct = async (req, res) => {
   }
 };
 
-const updateProduct = async (req, res) => {
+const updateProduct = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const productData = req.body;
@@ -61,7 +64,7 @@ const updateProduct = async (req, res) => {
   }
 };
 
-const deleteProduct = async (req, res) => {
+const deleteProduct = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const deletedProduct = await Product.findByIdAndDelete(id);
